@@ -1,0 +1,70 @@
+.row{
+    display: flex;
+    gap: 10px;
+    padding-top: 10px;
+    margin-left: 50px;
+    align-items: center;
+    justify-content: center;
+    
+    mat-form-field{
+        width: 100%;
+        padding: 10px;
+    }
+
+}
+
+.action{
+    margin-left: 25px;
+    padding: 0px 25px 20px;
+    button{
+        flex: 1;
+    }
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+th{
+    color: rgb(55, 33, 162);
+}
+
+th, td {
+    padding: 15px;
+}
+
+.table{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px rgb(157, 157, 157);
+}
+
+.tbl{
+    margin: 30px;
+    
+}
+
+.custom-table .mat-header-cell {
+    text-align: center;
+}
+
+.cancel{
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.heading{
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.radio{
+    margin-left: 65px;
+    margin-bottom: 30px;
+}
+#form{
+    margin-right: 70px;
+}
+.save{
+    /* margin-right: 15px; */
+    margin-left: 15px;
+}

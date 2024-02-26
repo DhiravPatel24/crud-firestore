@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "employee-66ffd": {
+      "hosting": {
+        "crud-emp": [
+          "employee-66ffd"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "employee-66ffd"
+  }
+}

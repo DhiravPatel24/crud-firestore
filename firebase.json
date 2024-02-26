@@ -1,0 +1,11 @@
+{
+  "hosting": [
+    {
+      "target": "crud-emp",
+      "source": ".",
+      "frameworksBackend": {
+        "region": "asia-east1"
+      }
+    }
+  ]
+}

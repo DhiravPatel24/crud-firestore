@@ -1,0 +1,182 @@
+<mat-toolbar color="primary">
+ <span>CRUD Application</span>
+  <span class="example-spacer"></span>
+  <button mat-raised-button (click)="openAddEditEmpForm()">ADD EMPLOYEE</button>
+  <button style="margin-left: 10px;" mat-raised-button (click)="logout()">LOG OUT</button>
+</mat-toolbar>
+<div id="form" *ngIf="showForm">
+  <form [formGroup]="empForm" id="formbtn" >
+    <div mat-dialog-title>
+      <h1 class="heading">Employee Form</h1>
+    </div>
+    <div mat-dialog-content class="content">
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput type="text" formControlName="firstName" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput type="text" formControlName="lastName" />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+        
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Education</mat-label>
+          <mat-select formControlName="education">
+            <mat-option *ngFor="let val of education" [value]="val">
+              {{ val }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Company</mat-label>
+          <input matInput type="text" formControlName="company" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Experience</mat-label>
+          <input matInput type="number" formControlName="experience" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Package</mat-label>
+          <input matInput type="number" formControlName="package" />
+          <mat-hint>In rupees</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div class="row" id="radio" class="radio">
+        <mat-radio-group aria-label="Select an option" formControlName="gender">
+          <mat-label><b>Gender</b></mat-label>
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+          <mat-radio-button value="others">Others</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      
+    </div>
+    <div mat-dialog-actions class="action">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="save"
+        *ngIf="!isUpdateMode"
+        (click)="addEmployee()"
+      >
+        Save
+      </button>
+     
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        style="margin-left: 15px;"
+        *ngIf="isUpdateMode"
+        (click)="updateEmployee()"
+      >
+        Update
+      </button>
+
+      <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="cancel"
+      (click)="closeAddEditEmpForm()"
+    >
+      Cancel
+    </button>
+    </div>
+  </form>
+</div>
+
+<div class="tbl">
+  <table
+    mat-table
+    [dataSource]="empDetails"
+    class="mat-elevation-z8"
+    class="table"
+    *ngIf="!showForm"
+  >
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">FirstName</th>
+      <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">LastName</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dob">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Dob</th>
+      <td mat-cell *matCellDef="let element">{{ element.dob }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Gender</th>
+      <td mat-cell *matCellDef="let element">{{ element.gender }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="education">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Education</th>
+      <td mat-cell *matCellDef="let element">{{ element.education }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Company</th>
+      <td mat-cell *matCellDef="let element">{{ element.company }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="experience">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Experience</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.experience }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="package">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Package</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;">{{ element.package }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Operations">
+      <th mat-header-cell *matHeaderCellDef style="text-align: center;">Operations</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;">
+        <button
+          mat-raised-button
+          color="primary"
+          class="edit_button"
+          (click)="onedit(element)"
+        >
+          Update
+        </button>
+        <button
+          mat-raised-button
+          style="background-color: rgb(233, 110, 110); margin-left: 10px;"
+          (click)="deleteEmployee(element)"
+        >
+          Delete
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+</div>
